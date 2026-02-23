@@ -192,13 +192,19 @@ rownames(cross_mat) <- shorten_factor_names(rownames(cross_mat))
 colnames(cross_mat) <- shorten_factor_names(colnames(cross_mat))
 write.csv(cross_mat, file.path(outdir, "pathway_concordancesistency.csv"), row.names = TRUE)
 
+#Fig8
 svg(file.path(outdir, "pathway_concordance_heatmap.svg"), width = 10, height = 10)
 pheatmap(
   cross_mat,
   cluster_rows = TRUE,
   cluster_cols = TRUE,
   color = colorRampPalette(c("white", "red"))(50),
-  main = "Pathway concordance (Jaccard similarity)\nRows: Reference MOFA+   Columns: SCOT+",
+  main = paste0(
+    "Pathway concordance (Jaccard similarity)\n",
+    "Abbreviations: Ref = Reference, SCOT = SCOT+ aligned\n",
+    "RNA = Transcriptomic view, PROT = Proteomic view"
+  ),
+  #main = "Pathway concordance (Jaccard similarity)\nRows: Reference MOFA+   Columns: SCOT+",
   fontsize = 14,
   fontsize_row = 12,
   fontsize_col = 12,
